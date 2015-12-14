@@ -1,3 +1,5 @@
+import re
+
 def vowels(s):
     return (s.count('a') + s.count('e') + s.count('i') + s.count('o') + s.count('u')) >= 3
 
@@ -12,23 +14,10 @@ def bad_double(s):
     return ('ab' in s) or ('cd' in s) or ('pq' in s) or ('xy' in s)
 
 def pair(s):
-    for i in range(0, len(s)):
-        if i < len(s) - 1:
-            if s[i] == s[i + 1]:
-                pair = s[i] + s[i + 1]
-                for j in range(i, len(s)):
-                    if j < len(s) - 1:
-                        if s[j] == s[j + 1] and s[j] + s[j + 1] == pair and i+ 2 != j:
-                            return True
-    return False
+    return re.search(r'(.)(.).*\1\2', s)
 
 def repeat(s):
-    for i in range(0, len(s)):
-        if i > 0 and i < len(s) - 1:
-            if s[i - 1] == s[i + 1]:
-                return True
-    return False
-
+    return re.search(r'(.).\1', s)
 
 with open("input") as file:
     lines = file.readlines()
